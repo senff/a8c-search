@@ -1,6 +1,6 @@
 # Senffsational A8C Search Portalpage
-- Version: 2.0
-- Date: Aug 4, 2024
+- Version: 2.01
+- Date: Aug 6, 2024
 
 ---------
 
@@ -32,7 +32,7 @@ This way, you can have a page where you only see the boxes you want to see, in t
 
 1. Download https://github.com/Automattic/support-helper-tools/raw/main/automattic-search-tools/Automattic%20Search%20Tool.zip
 2. Decompress the .zip file to any location on your hard drive.
-3. Open search.html in your browser.
+3. Open index.html in your browser.
 4. Bookmark the file.
 5. Searchy search search.
 
