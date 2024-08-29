@@ -1,4 +1,3 @@
-
 $(document).ready(function() {
 
   // -----------------------------------------------------------------------
@@ -24,9 +23,9 @@ $(document).ready(function() {
       }
   })
 
-	// -----------------------------------------------------------------------
-	// On load, check each box to see if it has settings saved in localstorage
-	// If yes, retrieve those settings and apply them to that box
+  // -----------------------------------------------------------------------
+  // On load, check each box to see if it has settings saved in localstorage
+  // If yes, retrieve those settings and apply them to that box
   if (typeof(Storage) !== "undefined") {
     setMode();
     setFlow();
@@ -76,7 +75,6 @@ $(document).ready(function() {
   // -----------------------------------------------------------------------
   // Set the Color Mode based on the localStorage (light by default) 
   function setMode() {
-      console.log('SETMODE');
       screenmode = localStorage.getItem('senffsational-mode');
       if (screenmode == 'dark') {
         $('body').addClass('dark-mode');
@@ -204,7 +202,7 @@ $(document).ready(function() {
   // Make boxes draggable and resizable
   function boxDragResize() {
     $( ".box" ).draggable({
-      grid: [ 20, 20 ],
+      grid: [10, 10 ],
       start: function() {},
       drag: function() {},
       stop: function() {
@@ -270,10 +268,10 @@ $(document).ready(function() {
   // -----------------------------------------------------------------------
   // The function that puts all the boxes in the original position and/or
   // puts them in the desired amount of columns
-	function resetAll(columns) {
+  function resetAll(columns) {
     var cols = parseInt(columns);
     $('.box-list li input').prop('checked', true);
-		var screenWidth = $(window).width();
+    var screenWidth = $(window).width();
     var boxWidth = 405; // default
     var boxSpace = 15; // don't touch this
     if(cols == 0) {
@@ -284,42 +282,43 @@ $(document).ready(function() {
       boxWidth = Math.floor(spaceForBoxes / cols);
     }
 
-		var boxCount = 0;
-		var initTop = 0;
-		var boxPerRow = Math.floor(screenWidth / (boxWidth + boxSpace)); // How many boxes fit on a row
-		var boxRow = 0;
-	  var boxColumn = 0;
-		$(".box").each(function(){
-			var boxLeftPos = ((boxWidth + boxSpace) * boxColumn) + boxSpace;
-			$(this).css('left',boxLeftPos+'px');
-			$(this).css('top',initTop+'px');
-			$(this).css('width',boxWidth+'px');
-			$(this).css('height','auto');
-			$(this).css('z-index','100');
+    var boxCount = 0;
+    var initTop = 0;
+    var boxPerRow = Math.floor(screenWidth / (boxWidth + boxSpace)); // How many boxes fit on a row
+    var boxRow = 0;
+    var boxColumn = 0;
+    $(".box").each(function(){
+      var boxLeftPos = ((boxWidth + boxSpace) * boxColumn) + boxSpace;
+      $(this).css('left',boxLeftPos+'px');
+      $(this).css('top',initTop+'px');
+      $(this).css('width',boxWidth+'px');
+      $(this).css('height','auto');
+      $(this).css('z-index','100');
       $(this).css('display','block');
       $(this).attr('data-status','2');        
-			$(this).attr('data-row',boxRow);
-			$(this).attr('data-column',boxColumn);			
-			boxColumn++;
-			boxCount++;			
-			if ((boxColumn) == boxPerRow) {
-				// This is the last box on the row. The next should start on a new row.
-				// First we'll need to find what the highest box in this current row is.
-				var highestBox = 0;
-				$(".box[data-row="+boxRow+"]").each(function(){
-					var thisBoxHeight = $(this).height();
-					$(this).attr('boxheight',thisBoxHeight);
-					if(thisBoxHeight > highestBox) {
-						highestBox = thisBoxHeight;
-					}
-				});
-				initTop = initTop + highestBox + boxSpace + 5; // adding 5 just to accomodate for some borders, etc.
-				boxColumn = 0;
-				boxRow++;
-			}     
-			saveLS($(this));
-		});
-	}
+      $(this).attr('data-row',boxRow);
+      $(this).attr('data-column',boxColumn);      
+      boxColumn++;
+      boxCount++;     
+      if ((boxColumn) == boxPerRow) {
+        // This is the last box on the row. The next should start on a new row.
+        // First we'll need to find what the highest box in this current row is.
+        var highestBox = 0;
+        $(".box[data-row="+boxRow+"]").each(function(){
+          var thisBoxHeight = $(this).height();
+          $(this).attr('boxheight',thisBoxHeight);
+          if(thisBoxHeight > highestBox) {
+            highestBox = thisBoxHeight;
+          }
+        });
+        initTop = initTop + highestBox + boxSpace + 5; // adding 5 just to accomodate for some borders, etc.
+        initTop = Math.ceil(initTop / 10) * 10; // round up to nearest 10       
+        boxColumn = 0;
+        boxRow++;
+      }     
+      saveLS($(this));
+    });
+  }
 
   // -----------------------------------------------------------------------
   // Execute search
